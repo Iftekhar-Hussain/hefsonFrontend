@@ -1,0 +1,5411 @@
+* {
+  box-sizing: border-box;
+}
+
+@import "ui-neumorphism/dist/index.css";
+
+// Common colors
+
+$primary: #000000;
+$secondary: rgba(#000000, 0.8);
+$supporting: rgba(#000000, 0.5);
+$bgcolor: #f7f7f7;
+$light: #ffffff;
+$green: #0edd7e;
+$link: #0d99ff;
+$redColor: #ff0808;
+
+@font-face {
+  font-family: "California";
+  src: url(../public/assets/California.otf);
+}
+
+// Common Mixins in it
+
+@mixin itemPosition($align, $jutify) {
+  display: flex;
+  align-items: $align;
+  justify-content: $jutify;
+}
+
+@mixin roundShap($width, $height, $bgcolor) {
+  @include itemPosition(center, center);
+  width: $width;
+  height: $height;
+  border-radius: 50%;
+  background-color: $bgcolor;
+}
+
+@mixin squareShap($width, $height, $radius, $bgcolor) {
+  @include itemPosition(center, center);
+  width: $width;
+  height: $height;
+  border-radius: $radius;
+  background-color: $bgcolor;
+}
+
+@mixin outerShadow {
+  box-shadow: -8px -8px 14px #ffffff, -4px -4px 2px rgba(255, 255, 255, 0.5),
+    -4px 4px 8px rgba(222, 222, 222, 0.2), 4px -4px 8px rgba(222, 222, 222, 0.2),
+    -4px -4px 8px #ffffff, 4px 4px 10px #dcdcdc;
+}
+
+@mixin innerShadow {
+  box-shadow: 4px 4px 15px #ffffff, 3px 4px 9px #ffffff,
+    inset -5px 5px 10px rgba(233, 233, 233, 0.2),
+    inset 5px -5px 10px rgba(233, 233, 233, 0.2),
+    inset -5px -5px 10px rgba(255, 255, 255, 0.9),
+    inset 5px 5px 13px rgba(233, 233, 233, 0.9);
+}
+
+@mixin fontFamily {
+  font-family: "Inter", sans-serif;
+}
+
+@mixin mapBox {
+  position: relative;
+
+  .sideGradient {
+    width: 50px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(90deg, #f7f7f7 10%, rgba(247, 247, 247, 0) 90%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .topGradient {
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(
+      180deg,
+      #f7f7f7 10%,
+      rgba(247, 247, 247, 0) 90%
+    );
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .bottomGradient {
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(
+      360deg,
+      #f7f7f7 10%,
+      rgba(247, 247, 247, 0) 90%
+    );
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .rightGradient {
+    width: 50px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: linear-gradient(
+      270deg,
+      #f7f7f7 10%,
+      rgba(247, 247, 247, 0) 90%
+    );
+    z-index: 1;
+    pointer-events: none;
+  }
+}
+
+// Scroll
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $primary;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba($color: $primary, $alpha: 0.6);
+}
+
+//Common Btns
+
+.btn {
+  background: $bgcolor !important;
+  border-radius: 5px;
+  @include outerShadow();
+  height: 46px;
+  @include fontFamily();
+  color: $primary;
+
+  &:focus {
+    @include outerShadow();
+  }
+
+  // text-transform: uppercase;
+  &:hover {
+    @include innerShadow();
+  }
+}
+
+.btn-border {
+  border: 1px solid $secondary;
+}
+
+.btn-theme {
+  background-color: $primary !important;
+  color: $light !important;
+  font-weight: 600;
+}
+
+.btn-black {
+  background: $primary !important;
+  color: $light !important;
+  border-radius: 5px;
+  height: 46px;
+  padding: 0px 7px;
+  font-weight: 600;
+}
+
+.btn-closed {
+  border: 1.5px solid $primary;
+  border-radius: 6px;
+  height: 19px;
+  width: 19px;
+  background: transparent;
+  @include itemPosition(center, center);
+
+  i {
+    font-size: 11px;
+  }
+}
+
+// Common Classes
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: $bgcolor;
+  position: relative;
+}
+
+.centerMid {
+  @include itemPosition(center, center);
+}
+
+.spaceBetween {
+  @include itemPosition(center, space-between);
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.flexEnd {
+  @include itemPosition(center, flex-end);
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.spaceAround {
+  @include itemPosition(center, space-around);
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.c-pointer {
+  cursor: pointer;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mt-25 {
+  margin-top: 25px;
+}
+
+.mt-30 {
+  margin-top: 30px;
+}
+
+.mGap {
+  gap: 10px;
+}
+.lGap {
+  gap: 15px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"],
+input[type="email"],
+input[type="password"] {
+  border: none !important;
+  border-radius: 5px !important;
+  color: $secondary !important;
+  background-color: transparent !important;
+  height: 46px;
+  font-weight: 400;
+  font-size: 14px;
+  font-family: "Inter", sans-serif !important;
+
+  &:focus {
+    box-shadow: none !important;
+  }
+
+  &::placeholder {
+    color: $secondary;
+    font-family: "Inter", sans-serif;
+  }
+}
+
+.blink-icon {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+input[type="date"],
+input[type="time"] {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+}
+
+select {
+  border: none !important;
+  border-radius: 10px !important;
+  color: $secondary !important;
+  background-color: transparent !important;
+  height: 46px;
+  font-weight: 400;
+  font-size: 14px !important;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+
+  /* Add custom background and border styles */
+
+  &::-ms-expand {
+    display: none;
+  }
+
+  &::after {
+    content: "\25BC";
+    color: $primary;
+    font-size: 12px;
+    margin-right: 5px;
+    border-radius: 15px;
+  }
+
+  option {
+    /* Add custom styles for dropdown options */
+    background-color: $bgcolor;
+    color: $primary;
+    font-size: 13px;
+    padding: 12px;
+    margin: 10px 3px;
+    @include outerShadow();
+    font-family: "Inter", sans-serif;
+
+    &:hover {
+      background-color: $primary !important;
+      color: $light !important;
+      outline: none !important;
+    }
+  }
+
+  &:focus {
+    box-shadow: none !important;
+  }
+
+  &:disabled {
+    color: $secondary;
+    font-family: "Inter", sans-serif;
+  }
+}
+
+.pac-target-input:not(:-webkit-autofill) {
+  border: none !important;
+  border-radius: 5px !important;
+  color: $secondary !important;
+  background-color: transparent !important;
+  height: 46px;
+  font-weight: 400;
+  font-size: 14px;
+  font-family: "Inter", sans-serif !important;
+
+  &:focus {
+    box-shadow: none !important;
+  }
+
+  &::placeholder {
+    color: $secondary;
+    font-family: "Inter", sans-serif;
+  }
+}
+
+.css-13cymwt-control {
+  background: transparent !important;
+  border: none !important;
+  height: 46px;
+  font-size: 14px;
+}
+
+.css-tj5bde-Svg {
+  fill: $secondary !important;
+}
+
+.css-qbdosj-Input {
+  padding: 0 !important;
+  margin: 0 !important;
+  grid-area: 1/1/2/1 !important;
+}
+
+.css-t3ipsp-control {
+  background: transparent !important;
+  border: none !important;
+  height: 46px;
+  box-shadow: none !important;
+  font-size: 14px;
+}
+
+.css-1u9des2-indicatorSeparator {
+  width: 0px !important;
+}
+
+textarea {
+  border: none !important;
+  border-radius: 10px !important;
+  color: $secondary !important;
+  background-color: transparent !important;
+
+  &:focus {
+    box-shadow: none !important;
+  }
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  border: 1px solid $supporting;
+  border-radius: 5px;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.form-check-input:checked {
+  background-color: $primary !important;
+}
+
+.border-radius {
+  border-radius: 50% !important;
+}
+
+.inputField {
+  @include innerShadow();
+  position: relative;
+  border-radius: 10px;
+
+  i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $secondary;
+  }
+
+  img {
+    position: absolute;
+    right: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $secondary;
+    background-color: $bgcolor;
+    width: 15px;
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  label.uploadImages {
+    padding: 0 0.75rem;
+    height: 45px;
+    line-height: 45px;
+    color: $secondary;
+    font-size: 14px;
+    font-family: "Inter", sans-serif;
+  }
+}
+
+label.uploadButton {
+  .camera {
+    cursor: pointer;
+    @include outerShadow();
+    @include squareShap(50px, 50px, 5px, $bgcolor);
+  }
+}
+
+nav.paginationBox {
+  ul.pagination {
+    gap: 15px;
+    border-radius: 10px;
+
+    li.page-item {
+      .page-link {
+        border-radius: 5px;
+        @include outerShadow();
+        color: $secondary;
+      }
+    }
+  }
+}
+
+.br-bottom {
+  border-radius: 0 0 15px 15px;
+}
+
+a {
+  color: $link;
+  font-weight: 500;
+  @include fontFamily();
+}
+
+.validation-error {
+  font-size: 12px;
+}
+
+input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  background: transparent;
+  outline: none;
+
+  &::-webkit-calendar-picker-indicator {
+    background: url("../public/assets/icons/CalendarDate.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #fff;
+    border: none;
+    border-radius: 1px;
+    background-size: 17px;
+  }
+
+  &:focus + img.cal {
+    display: none;
+  }
+}
+
+input[type="time"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  background: transparent;
+  outline: none;
+
+  &::-webkit-calendar-picker-indicator {
+    background: url("../public/assets/icons/TimeSquare.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #fff;
+    border: none;
+    border-radius: 1px;
+    background-size: 17px;
+  }
+
+  &:focus + img.cal {
+    display: none;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.viewallContainer {
+  .spaceBetween {
+    h5 {
+      font-size: 18px;
+    }
+
+    a {
+      font-size: 14px;
+      display: flex;
+      gap: 8px;
+      text-decoration: none;
+
+      &:hover {
+        color: $link;
+      }
+    }
+  }
+}
+
+.circularGraph {
+  @include roundShap(190px, 190px, transparent);
+  background: linear-gradient(
+    302.98deg,
+    #131729 14.52%,
+    rgba(19, 23, 41, 0.68) 93.56%
+  );
+  border: 4px solid $light;
+  @include outerShadow();
+
+  .temperatureRed {
+    @include roundShap(130px, 130px, $redColor);
+    border: 10px solid rgba($color: $primary, $alpha: 0.1);
+    color: $light;
+
+    h1 {
+      font-size: 28px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+  }
+
+  .temperature {
+    @include roundShap(130px, 130px, $primary);
+    border: 10px solid rgba($color: $primary, $alpha: 0.1);
+    color: $light;
+
+    h1 {
+      font-size: 28px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+  }
+}
+
+//shipment map component for blinking animation
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.blinking-marker {
+  animation: blink 1s infinite;
+}
+
+// Auth Pages
+.auth {
+  background-color: $bgcolor;
+  padding: 30px 0;
+  img.logo {
+    max-width: 150px;
+  }
+
+  .customContainer {
+    height: 90vh;
+  }
+
+  .content {
+    @include outerShadow;
+    margin: 60px 0;
+    padding: 50px;
+    border-radius: 10px;
+    max-width: 591px;
+
+    h1 {
+      font-weight: 600;
+      color: $secondary;
+      margin-bottom: 35px;
+      font-size: 32px;
+    }
+
+    h2 {
+      font-weight: 600;
+      color: $secondary;
+      margin-bottom: 15px;
+      font-size: 28px;
+    }
+
+    p.note {
+      color: rgba($color: $primary, $alpha: 0.9);
+      font-weight: 400;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .spaceBetween {
+      .form-check {
+        label {
+          color: $supporting;
+          font-size: 14px;
+          @include fontFamily();
+
+          a {
+            font-weight: 500;
+          }
+        }
+      }
+
+      a {
+        text-decoration: none;
+        color: $secondary;
+        font-size: 14px;
+      }
+    }
+
+    p {
+      color: $secondary;
+      font-weight: 400;
+      font-size: 14px;
+
+      a {
+        text-decoration: none;
+        color: $primary;
+        font-weight: 500;
+      }
+    }
+
+    .enterOTP {
+      gap: 12px;
+      @include itemPosition(center, flex-start);
+
+      .inputField {
+        width: 46px;
+
+        input {
+          text-align: center;
+        }
+      }
+    }
+
+    a {
+      font-size: 14px;
+      font-weight: 400;
+
+      img {
+        margin-right: 8px;
+      }
+    }
+
+    .form-check {
+      .form-check-input {
+        border: 1px solid rgba($color: $primary, $alpha: 0.2);
+        background-color: transparent;
+      }
+
+      .form-check-label {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.header {
+  padding: 15px 0;
+
+  .slider {
+    img.img {
+      width: 133px;
+      margin: auto;
+    }
+
+    h2 {
+      font-size: 16px;
+      background-color: $primary;
+      border-radius: 30px;
+      padding: 5px 15px;
+      color: $light;
+      width: fit-content;
+      margin: auto;
+    }
+  }
+  .notification-count {
+    position: relative;
+    top: -15px;
+    right: 10px;
+    height: 20px;
+    width: 15px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+  }
+
+  .dropdown-content {
+    position: absolute;
+    top: 68px;
+    right: 20px;
+    max-width: 300px;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 999;
+    border-radius: 15px;
+    padding: 0;
+    .dropdown-header {
+      text-align: center;
+      border-bottom: 1px solid rgba($color: $primary, $alpha: 0.3);
+      h2 {
+        font-size: 25px;
+      }
+    }
+    .nonotification {
+      h4 {
+        font-size: 18px;
+        text-align: center;
+        padding: 10px;
+        margin-bottom: 0;
+      }
+    }
+    .dropdown-list {
+      max-height: 300px;
+      overflow: auto;
+      margin: 0 0 10px;
+      div {
+        padding: 10px;
+        &:not(:last-child) {
+          border-bottom: 1px solid rgba($color: $primary, $alpha: 0.1);
+        }
+        &.unread {
+          background-color: rgba($color: $primary, $alpha: 0.1);
+        }
+      }
+    }
+    .dropdown-footer-buttons {
+      background-color: $bgcolor;
+      color: $light;
+      text-align: center;
+      padding: 10px;
+      border-radius: 0 0 10px 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      button {
+        margin: auto;
+        text-align: center;
+        @include outerShadow();
+        @include itemPosition(center, center);
+        flex-direction: column;
+        padding: 15px;
+        border-radius: 20px;
+        height: 10px;
+        position: relative;
+        gap: 15px;
+      }
+    }
+    .dropdown-footer {
+      background-color: $primary;
+      color: $light;
+      text-align: center;
+      padding: 10px;
+      border-radius: 0 0 15px 15px;
+
+      h3 {
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+.dashboard {
+  position: relative;
+
+  .searchcontent {
+    max-width: 100%;
+    position: relative;
+    flex: 1;
+
+    img.light {
+      position: absolute;
+      top: -63px;
+      left: -105px;
+    }
+
+    h5 {
+      color: $secondary;
+      overflow: hidden;
+      font-size: 22px;
+      font-weight: 500;
+    }
+
+    .headingMain {
+      display: flex;
+      justify-content: left;
+
+      h2 {
+        font-weight: 600;
+        color: $primary;
+        border-right: 0.15em solid $primary;
+        animation: typing 3.5s steps(30, start),
+          blink-caret 0.75s step-end infinite;
+        margin-left: 0;
+        width: fit-content;
+        font-size: 32px;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    }
+
+    .searchBox {
+      border-radius: 20px;
+      @include outerShadow();
+      @include itemPosition(center, flex-start);
+      gap: 15px;
+
+      input {
+        &::placeholder {
+          color: rgba($color: $primary, $alpha: 0.5);
+        }
+      }
+
+      .searchIcon {
+        @include roundShap(35px, 35px, $bgcolor);
+        @include outerShadow();
+        margin-right: 5px;
+        cursor: pointer;
+
+        i {
+          color: $primary;
+        }
+      }
+    }
+    .drop-result {
+      position: absolute;
+      @include outerShadow();
+      width: 100%;
+      border-radius: 15px;
+      background-color: $bgcolor;
+      z-index: 2;
+      padding: 0 15px 15px;
+      .dropdown {
+        p {
+          border-bottom: 1px solid rgba($color: $primary, $alpha: 0.1);
+          margin: 10px 0;
+          font-weight: 600;
+        }
+      }
+    }
+
+    /* The typing effect */
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+
+      to {
+        width: 100%;
+      }
+    }
+
+    /* The typewriter cursor effect */
+    @keyframes blink-caret {
+      from,
+      to {
+        border-color: transparent;
+      }
+
+      50% {
+        border-color: transparent;
+      }
+    }
+  }
+
+  .liveMonitoring {
+    background-color: #dbecf8;
+    font-size: 26px;
+    padding: 20px 35px;
+    border-radius: 67px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin: auto;
+    width: fit-content;
+    text-align: center;
+    @include outerShadow();
+  }
+
+  .homeNavigation {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    justify-content: space-between;
+    gap: 10px 45px;
+
+    .navBtnBox {
+      text-align: center;
+      cursor: pointer;
+
+      .homenavBtn {
+        margin: auto;
+        text-align: center;
+        @include outerShadow();
+        @include itemPosition(center, center);
+        flex-direction: column;
+        padding: 30px;
+        border-radius: 20px;
+        height: 100px;
+        position: relative;
+        gap: 15px;
+      }
+
+      .navBtn {
+        margin: auto;
+        text-align: center;
+        @include outerShadow();
+        @include itemPosition(center, flex-start);
+        flex-direction: column;
+        border-radius: 20px;
+        height: 122px;
+        position: relative;
+        gap: 15px;
+        padding-top: 15px;
+
+        .navTools {
+          @include itemPosition(center, center);
+          gap: 10px;
+
+          .onlineDot {
+            @include roundShap(8px, 8px, $green);
+          }
+
+          .offlineDot {
+            @include roundShap(8px, 8px, $supporting);
+          }
+
+          .editBox {
+            @include itemPosition(center, center);
+            gap: 10px;
+
+            i {
+              @include roundShap(20px, 20px, $bgcolor);
+              @include outerShadow();
+              color: $supporting;
+              cursor: pointer;
+              font-size: 10px;
+            }
+          }
+        }
+        a {
+          img {
+            width: 70px;
+          }
+        }
+      }
+
+      p {
+        color: rgba($color: $primary, $alpha: 0.6);
+        font-weight: 600;
+      }
+    }
+  }
+
+  .adminNavigation {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    justify-content: space-between;
+    gap: 20px 45px;
+
+    .navBtnBox {
+      text-align: center;
+      cursor: pointer;
+
+      .homenavBtn {
+        margin: auto;
+        text-align: center;
+        @include outerShadow();
+        @include itemPosition(center, center);
+        flex-direction: column;
+        padding: 30px;
+        border-radius: 20px;
+        height: 180px;
+        position: relative;
+        gap: 15px;
+
+        p {
+          margin-bottom: 0;
+          font-size: 20px;
+          color: $primary;
+        }
+
+        h3 {
+          font-size: 30px;
+          font-weight: 500;
+        }
+      }
+
+      .navBtn {
+        margin: auto;
+        text-align: center;
+        @include outerShadow();
+        @include itemPosition(center, center);
+        flex-direction: column;
+        border-radius: 20px;
+        height: 122px;
+        position: relative;
+        gap: 15px;
+
+        .navTools {
+          @include itemPosition(center, center);
+          gap: 10px;
+
+          .onlineDot {
+            @include roundShap(8px, 8px, $green);
+          }
+
+          .offlineDot {
+            @include roundShap(8px, 8px, $supporting);
+          }
+
+          .editBox {
+            @include itemPosition(center, center);
+            gap: 10px;
+
+            i {
+              @include roundShap(20px, 20px, $bgcolor);
+              @include outerShadow();
+              color: $supporting;
+              cursor: pointer;
+              font-size: 10px;
+            }
+          }
+        }
+      }
+
+      p {
+        color: rgba($color: $primary, $alpha: 0.6);
+        font-weight: 600;
+      }
+    }
+  }
+
+  .addressBox {
+    @include outerShadow();
+    padding: 15px;
+    border-radius: 10px;
+
+    .battery {
+      @include itemPosition(center, space-between);
+      gap: 15px;
+
+      h5 {
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .icons {
+        @include itemPosition(center, flex-start);
+        gap: 15px;
+        flex-wrap: wrap;
+
+        h6 {
+          margin-bottom: 0;
+          font-size: 14px;
+          font-weight: 500;
+          color: $primary;
+        }
+
+        .iconBox {
+          @include roundShap(22px, 22px, transparent);
+          border: 1px solid $supporting;
+
+          img {
+            width: 14px;
+          }
+        }
+
+        .locaion {
+          @include roundShap(22px, 22px, rgba(#0d99ff, 0.2));
+
+          img {
+            width: 10px;
+          }
+
+          i {
+            color: #0d99ff;
+          }
+        }
+
+        .back {
+          @include roundShap(22px, 22px, $bgcolor);
+          @include outerShadow();
+          cursor: pointer;
+
+          img {
+            width: 12px;
+          }
+        }
+      }
+    }
+
+    .addresss {
+      @include itemPosition(center, flex-start);
+      gap: 15px;
+
+      .icon {
+        @include roundShap(24px, 24px, transparent);
+        border: 1px solid $supporting;
+
+        img {
+          width: 10px;
+        }
+      }
+
+      .text {
+        flex: 1;
+
+        h6 {
+          font-size: 14px;
+          margin-bottom: 0;
+          color: $primary;
+        }
+      }
+    }
+  }
+
+  img.animal {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .homeSlider {
+    img.img {
+      width: 150px;
+    }
+  }
+
+  .mapSection {
+    @include mapBox();
+    height: 100vh;
+
+    .btn {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+    }
+
+    .gpsButton {
+      @include squareShap(40px, 40px, 3px, $bgcolor);
+      position: absolute;
+      border: 1px solid $bgcolor;
+      left: 10px;
+      bottom: 109px;
+      cursor: pointer;
+
+      i {
+        color: $primary;
+      }
+
+      z-index: 1;
+    }
+  }
+
+  .devices {
+    border-radius: 10px;
+    @include outerShadow();
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    max-width: 150px;
+    margin: auto;
+
+    .greenIcon {
+      @include roundShap(20px, 20px, $green);
+      color: $light;
+      position: relative;
+
+      i {
+        font-size: 12px;
+      }
+
+      .line {
+        position: absolute;
+        width: 1px;
+        height: 20px;
+        background-color: $green;
+        bottom: -20px;
+      }
+
+      &.darkIcon {
+        @include roundShap(20px, 20px, $bgcolor);
+        color: $primary;
+        border: 1.5px solid $primary;
+
+        .line {
+          background-color: $primary;
+        }
+      }
+    }
+
+    .navTools {
+      @include itemPosition(center, center);
+      gap: 10px;
+      .onlineDot {
+        @include roundShap(8px, 8px, $green);
+      }
+
+      .offlineDot {
+        @include roundShap(8px, 8px, $supporting);
+      }
+
+      .editBox {
+        @include itemPosition(center, center);
+        gap: 10px;
+
+        i {
+          @include roundShap(20px, 20px, $bgcolor);
+          @include outerShadow();
+          color: $supporting;
+          cursor: pointer;
+          font-size: 10px;
+        }
+      }
+    }
+    a {
+      height: 120px;
+      @include itemPosition(center, center);
+      width: 100%;
+      img {
+        width: 75%;
+      }
+    }
+  }
+
+  .graphRow {
+    h3 {
+      font-size: 20px;
+    }
+  }
+
+  .logoBox {
+    padding: 7px;
+    @include outerShadow();
+    margin-right: 28px;
+    border-radius: 20px;
+    height: fit-content;
+    width: 120px;
+    img {
+      width: 100%;
+      border-radius: 15px;
+    }
+  }
+
+  .popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+
+    .popup {
+      max-width: 687px;
+
+      .modal-content {
+        border-radius: 15px;
+
+        .editBox {
+          gap: 10px;
+
+          i {
+            @include roundShap(30px, 30px, $bgcolor);
+            @include outerShadow();
+            color: $supporting;
+            cursor: pointer;
+          }
+        }
+
+        .modal-header {
+          background-color: $bgcolor;
+          border-bottom: none;
+          border-radius: 15px 15px 0 0;
+          padding: 20px;
+
+          h5.modal-title {
+            font-size: 22px;
+            font-weight: 500;
+          }
+        }
+
+        .modal-body {
+          background-color: $bgcolor;
+          padding: 0 20px 20px 20px;
+        }
+
+        .modal-footer {
+          background-color: $bgcolor;
+          border-radius: 0 0 15px 15px;
+          padding: 15px;
+
+          .btn {
+            min-width: 130px;
+            font-size: 16px;
+          }
+        }
+      }
+
+      &.custom-width {
+        max-width: 687px;
+      }
+
+      &.sm-width {
+        max-width: 354px;
+      }
+    }
+  }
+}
+
+.toolBox {
+  background-color: $primary;
+  @include itemPosition(center, center);
+  flex-direction: column;
+  gap: 0px;
+  position: fixed;
+  left: 0;
+  width: 20px;
+  padding: 5px 0;
+  border-radius: 0 8px 8px 0;
+  top: 220px;
+  transition: all 1s;
+  z-index: 5;
+
+  .icon {
+    transition: all 0.2s;
+    cursor: pointer;
+    position: relative;
+
+    i {
+      color: $light;
+      font-size: 8px;
+    }
+
+    img {
+      width: 10px;
+    }
+
+    .dot {
+      position: absolute;
+      top: 0;
+      right: 0;
+      i {
+        color: $green;
+        font-size: 5px;
+      }
+    }
+
+    &:hover {
+      i {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  &:hover {
+    gap: 15px;
+    width: 60px;
+    padding: 10px 0;
+    border-radius: 0 15px 15px 0;
+    top: 180px;
+    z-index: 5;
+
+    .icon {
+      transition: all 0.2s;
+      cursor: pointer;
+
+      i {
+        color: $light;
+        font-size: 17px;
+      }
+
+      img {
+        width: 20px;
+      }
+      .dot {
+        right: -3px;
+        i {
+          color: $green;
+          font-size: 10px;
+          opacity: 1;
+        }
+      }
+
+      &:hover {
+        i {
+          opacity: 0.8;
+        }
+        .dot {
+          i {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}
+
+.UnitTop {
+  h4 {
+    color: #691d3b;
+    font-family: "Jura", sans-serif;
+    font-weight: 700;
+  }
+}
+
+.units {
+  .unitBox {
+    @include outerShadow();
+    padding: 15px;
+    position: relative;
+    border-radius: 15px;
+
+    .onlineDot {
+      @include roundShap(15px, 15px, $green);
+      cursor: pointer;
+    }
+
+    .offlineDot {
+      @include roundShap(15px, 15px, $supporting);
+      cursor: pointer;
+    }
+
+    .editBox {
+      gap: 10px;
+
+      i {
+        @include roundShap(30px, 30px, $bgcolor);
+        @include outerShadow();
+        color: $supporting;
+        cursor: pointer;
+      }
+    }
+
+    .UnitModel {
+      @include itemPosition(flex-start, flex-start);
+      gap: 15px;
+
+      p {
+        font-size: 12px;
+        margin-bottom: 5px;
+        font-weight: 400;
+      }
+
+      h5 {
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+
+    .unitNumber {
+      margin-top: 15px;
+      @include innerShadow();
+      text-align: center;
+      padding: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 5px;
+
+      h3 {
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      h3.city {
+        font-family: "California";
+        font-size: 15px;
+      }
+
+      h3.month {
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+
+    .popup {
+      max-width: 687px;
+
+      .modal-content {
+        border-radius: 15px;
+
+        .editBox {
+          gap: 10px;
+
+          i {
+            @include roundShap(30px, 30px, $bgcolor);
+            @include outerShadow();
+            color: $supporting;
+            cursor: pointer;
+          }
+        }
+
+        .modal-header {
+          background-color: $bgcolor;
+          border-bottom: none;
+          border-radius: 15px 15px 0 0;
+          padding: 20px;
+
+          h5.modal-title {
+            font-size: 22px;
+            font-weight: 500;
+          }
+        }
+
+        .modal-body {
+          background-color: $bgcolor;
+          padding: 0 20px 20px 20px;
+        }
+
+        .modal-footer {
+          background-color: $bgcolor;
+          border-radius: 0 0 15px 15px;
+          padding: 15px;
+
+          .btn {
+            min-width: 130px;
+            font-size: 16px;
+          }
+        }
+      }
+
+      &.custom-width {
+        max-width: 687px;
+      }
+
+      &.sm-width {
+        max-width: 354px;
+      }
+    }
+  }
+}
+
+.drivers {
+  .nav-tabs {
+    border: none;
+    padding-left: 50px;
+    .nav-item {
+      width: 150px;
+      text-align: center;
+      margin: 0 !important;
+      &:first-child {
+        .nav-link {
+          border-radius: 12px 0 0 12px;
+        }
+      }
+
+      &:last-child {
+        .nav-link {
+          border-radius: 0 12px 12px 0;
+        }
+      }
+
+      .nav-link {
+        border: none;
+        border-radius: 0;
+        background-color: rgba($color: $primary, $alpha: 0.1);
+        color: $primary;
+        text-decoration: none;
+        font-weight: 500;
+
+        &.active {
+          background-color: $primary;
+          font-weight: 600;
+          color: $light;
+        }
+        &.inactive {
+          background-color: #949494;
+          font-weight: 600;
+          color: $light;
+        }
+      }
+    }
+  }
+
+  .driverBox {
+    @include outerShadow();
+    border-radius: 15px;
+    padding: 15px;
+    height: 100%;
+    color: $primary;
+    cursor: pointer;
+
+    .driverProfile {
+      @include itemPosition(center, flex-start);
+      gap: 10px;
+
+      .image {
+        width: 48px;
+        height: 48px;
+
+        img {
+          width: 48px;
+          height: 48px;
+          border-radius: 9px;
+        }
+      }
+
+      h3 {
+        font-size: 16px;
+        font-weight: 700;
+        max-width: 120px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .dataBox {
+      p {
+        font-size: 12px;
+        font-weight: 400;
+      }
+
+      h4 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+    }
+
+    .onlineDot {
+      @include roundShap(15px, 15px, $green);
+    }
+
+    .offlineDot {
+      @include roundShap(15px, 15px, $supporting);
+    }
+
+    .editBox {
+      gap: 10px;
+
+      i {
+        @include roundShap(30px, 30px, $bgcolor);
+        @include outerShadow();
+        color: $supporting;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .dataBox2 {
+    @include outerShadow();
+    border-radius: 15px;
+    margin-top: 25px;
+    padding: 12px;
+
+    p {
+      font-size: 16px;
+      margin-bottom: 0;
+    }
+
+    h1 {
+      font-size: 30px;
+      font-weight: 600;
+      margin-bottom: 0;
+      margin-top: 12px;
+    }
+  }
+
+  .popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+
+    .popup {
+      max-width: 687px;
+
+      .modal-content {
+        border-radius: 15px;
+
+        .editBox {
+          gap: 10px;
+
+          i {
+            @include roundShap(30px, 30px, $bgcolor);
+            @include outerShadow();
+            color: $supporting;
+            cursor: pointer;
+          }
+        }
+
+        .modal-header {
+          background-color: $bgcolor;
+          border-bottom: none;
+          border-radius: 15px 15px 0 0;
+          padding: 20px;
+
+          h5.modal-title {
+            font-size: 22px;
+            font-weight: 500;
+          }
+        }
+
+        .modal-body {
+          background-color: $bgcolor;
+          padding: 0 20px 20px 20px;
+        }
+
+        .modal-footer {
+          background-color: $bgcolor;
+          border-radius: 0 0 15px 15px;
+          padding: 15px;
+
+          .btn {
+            min-width: 130px;
+            font-size: 16px;
+          }
+        }
+      }
+
+      &.custom-width {
+        max-width: 687px;
+      }
+
+      &.sm-width {
+        max-width: 354px;
+      }
+    }
+  }
+}
+
+.modal-dialog {
+  .modal-content {
+    border-radius: 15px;
+
+    .editBox {
+      gap: 10px;
+
+      i {
+        @include roundShap(30px, 30px, $bgcolor);
+        @include outerShadow();
+        color: $supporting;
+        cursor: pointer;
+      }
+    }
+
+    .modal-header {
+      background-color: $bgcolor;
+      border-bottom: none;
+      border-radius: 15px 15px 0 0;
+      padding: 20px;
+
+      h5.modal-title {
+        font-size: 22px;
+        font-weight: 500;
+      }
+    }
+
+    .modal-body {
+      background-color: $bgcolor;
+      padding: 0 20px 20px 20px;
+    }
+
+    .modal-footer {
+      background-color: $bgcolor;
+      border-radius: 0 0 15px 15px;
+      padding: 15px;
+
+      .btn {
+        min-width: 130px;
+        font-size: 16px;
+      }
+    }
+  }
+
+  &.custom-width {
+    max-width: 687px;
+  }
+
+  &.sm-width {
+    max-width: 354px;
+  }
+}
+
+.newShipment {
+  .tabNavigation {
+    position: relative;
+    max-width: 991px;
+    margin: auto;
+    @include itemPosition(center, space-between);
+    gap: 10px;
+
+    .stepBox {
+      text-align: center;
+      z-index: 1;
+
+      .step {
+        @include roundShap(35px, 35px, $light);
+        margin: auto;
+
+        p {
+          color: $secondary;
+        }
+      }
+
+      h6 {
+        margin-top: 15px;
+      }
+
+      &.activeStep {
+        .step {
+          @include outerShadow();
+          @include roundShap(35px, 35px, $primary);
+
+          p {
+            color: $light;
+          }
+        }
+      }
+
+      &.successStep {
+        .step {
+          @include outerShadow();
+          @include roundShap(35px, 35px, $green);
+
+          p {
+            color: $light;
+          }
+        }
+
+        h6 {
+          color: $green;
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .middleLine {
+      position: absolute;
+      top: 14px;
+      left: 0;
+      width: 100%;
+      height: 7px;
+      z-index: 0;
+      @include innerShadow();
+    }
+  }
+
+  .tabContent {
+    margin-top: 30px;
+
+    .inputField {
+      margin-top: 15px;
+
+      .form-control {
+        background-color: transparent !important;
+        border: none !important;
+
+        &:focus {
+          box-shadow: none;
+        }
+      }
+    }
+
+    input[type="checkbox"] {
+      @include outerShadow();
+      border: none;
+    }
+  }
+}
+
+.shipment {
+  .nav-tabs {
+    border: none;
+    padding-left: 50px;
+    .nav-item {
+      width: 120px;
+      text-align: center;
+      margin: 0 !important;
+      &:first-child {
+        .nav-link {
+          border-radius: 12px 0 0 12px;
+        }
+      }
+
+      &:last-child {
+        .nav-link {
+          border-radius: 0 12px 12px 0;
+        }
+      }
+
+      .nav-link {
+        border: none;
+        border-radius: 12px;
+        background-color: rgba($color: $primary, $alpha: 0.1);
+        color: $primary;
+        text-decoration: none;
+        font-weight: 500;
+
+        &.active {
+          background-color: $primary;
+          font-weight: 600;
+          color: $light;
+        }
+        &.inactive {
+          background-color: #949494;
+          font-weight: 600;
+          color: $light;
+        }
+      }
+    }
+  }
+  .tabLayout {
+    border: 1px solid rgba($color: $primary, $alpha: 0.1);
+    padding: 15px;
+    border-radius: 15px;
+
+    .dataBox {
+      .data {
+        @include itemPosition(center, flex-start);
+        gap: 10px;
+
+        .icon {
+          @include roundShap(35px, 35px, $bgcolor);
+          border: 1px solid $supporting;
+        }
+
+        .text {
+          flex: 1;
+
+          p {
+            font-weight: 500;
+          }
+        }
+      }
+
+      .lightTemperature {
+        @include roundShap(130px, 130px, $bgcolor);
+        border: 3px solid rgba($color: $primary, $alpha: 0.1);
+        color: $primary;
+        @include outerShadow();
+        position: relative;
+        z-index: 1;
+
+        h1 {
+          font-size: 28px;
+        }
+
+        p {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .mapBox {
+      @include mapBox();
+      height: 550px;
+      overflow: hidden;
+      .redtemperature {
+        z-index: 20;
+        position: absolute;
+        top: 0px;
+        left: 10px;
+        @include roundShap(130px, 130px, $redColor);
+        border: 3px solid grey;
+        @include outerShadow();
+        color: $light;
+
+        h1 {
+          font-size: 28px;
+        }
+
+        p {
+          font-size: 12px;
+        }
+      }
+      .darktemperature {
+        z-index: 20;
+        position: absolute;
+        top: 0px;
+        left: 10px;
+        @include roundShap(130px, 130px, $primary);
+        border: 3px solid grey;
+        @include outerShadow();
+        color: $light;
+
+        h1 {
+          font-size: 28px;
+        }
+
+        p {
+          font-size: 12px;
+        }
+      }
+      .gpsButton {
+        @include squareShap(40px, 40px, 3px, $bgcolor);
+        position: absolute;
+        border: 1px solid $bgcolor;
+        left: 22px;
+        bottom: 110px;
+        cursor: pointer;
+
+        i {
+          color: $primary;
+        }
+
+        z-index: 1;
+      }
+    }
+
+    .travelInfo {
+      @include itemPosition(center, flex-start);
+      gap: 10px;
+
+      ul {
+        @include outerShadow();
+        list-style: none;
+        margin: 0;
+        @include itemPosition(center, flex-end);
+        flex-wrap: wrap;
+        padding: 0;
+        border-radius: 10px;
+        overflow: hidden;
+
+        li {
+          border-right: 1px solid rgba($color: $primary, $alpha: 0.05);
+          padding: 10px;
+          font-weight: 500;
+
+          p {
+            font-size: 14px;
+          }
+
+          Link {
+            font-size: 14px;
+          }
+
+          &.darkBg {
+            background-color: $primary;
+            color: $light;
+          }
+
+          &:first-child {
+            border-radius: 10px 0 0 10px;
+          }
+
+          &:last-child {
+            border-radius: 0 10px 10px 0;
+          }
+        }
+      }
+    }
+
+    .travelRecord {
+      @include itemPosition(center, space-between);
+      gap: 15px;
+      font-weight: 600;
+      flex-wrap: wrap;
+      position: relative;
+
+      .range {
+        flex: 1;
+        position: relative;
+        width: 100%;
+
+        .total {
+          width: 100%;
+          height: 2px;
+          background-color: $primary;
+          position: absolute;
+          top: 1px;
+          z-index: -1;
+          border-radius: 15px;
+        }
+
+        .value {
+          width: var(--move-point-left);
+          height: 3px;
+          background-color: $green;
+          position: absolute;
+          top: 47%;
+          z-index: -1;
+          border-radius: 15px;
+        }
+
+        .temp {
+          @include roundShap(35px, 35px, $bgcolor);
+          @include outerShadow();
+          position: absolute;
+          left: var(--move-point-left);
+          top: 50%;
+          transform: translateY(-50%);
+
+          p {
+            font-size: 12px;
+
+            &.smText {
+              font-size: 9px;
+            }
+          }
+        }
+      }
+
+      .loc {
+        @include itemPosition(center, flex-start);
+        gap: 10px;
+
+        .icon {
+          @include roundShap(35px, 35px, $bgcolor);
+          border: 1px solid $primary;
+        }
+      }
+
+      .pickup {
+        text-align: center;
+        font-size: 14px;
+
+        .icon {
+          @include roundShap(35px, 35px, $bgcolor);
+          @include outerShadow();
+          margin: 15px auto;
+
+          i {
+            &.checked {
+              color: $primary;
+            }
+
+            &.unchecked {
+              color: $supporting;
+            }
+          }
+        }
+
+        p.destinaton {
+          font-weight: 400;
+          background-color: $bgcolor;
+          max-width: 170px;
+          padding: 0 12px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          font-size: 14px;
+        }
+      }
+
+      .belowLine {
+        position: absolute;
+        width: 90%;
+        height: 1px;
+        bottom: 26px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: $primary;
+        z-index: -1;
+      }
+    }
+
+    .btn {
+      font-weight: 600;
+    }
+  }
+
+  .download {
+    @include itemPosition(center, flex-start);
+    gap: 10px;
+
+    .downlodeBox {
+      text-align: center;
+
+      .icon {
+        @include squareShap(48px, 48px, 12px, $bgcolor);
+        @include outerShadow();
+        margin: auto;
+
+        img {
+          width: 30px;
+        }
+      }
+
+      p {
+        margin-top: 15px;
+        color: $secondary;
+      }
+    }
+  }
+
+  .timeLine {
+    @include itemPosition(center, flex-end);
+    gap: 10px;
+
+    .icon {
+      @include squareShap(80px, 80px, 12px, $bgcolor);
+      @include outerShadow();
+    }
+  }
+
+  .table {
+    @include outerShadow();
+    border-radius: 15px;
+
+    td {
+      border-bottom: none;
+    }
+
+    th {
+      border-bottom: none;
+    }
+
+    .tableFooter {
+      border-top: 1px solid rgba($color: $primary, $alpha: 0.2);
+    }
+  }
+
+  .travelRecordDetail {
+    @include itemPosition(center, space-between);
+    gap: 15px;
+    font-weight: 600;
+
+    .range {
+      flex: 1;
+      position: relative;
+      width: 100%;
+
+      .total {
+        width: 100%;
+        height: 2px;
+        background-color: $primary;
+        position: absolute;
+        top: 50%;
+        z-index: -1;
+        border-radius: 15px;
+      }
+
+      .value {
+        width: 50%;
+        height: 5px;
+        background-color: $green;
+        position: absolute;
+        top: 47%;
+        z-index: -1;
+        border-radius: 15px;
+      }
+
+      .temp {
+        @include roundShap(35px, 35px, $bgcolor);
+        @include outerShadow();
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+
+        p {
+          font-size: 12px;
+
+          &.smText {
+            font-size: 9px;
+          }
+        }
+      }
+    }
+
+    .loc {
+      @include itemPosition(center, flex-start);
+      gap: 10px;
+
+      .icon {
+        @include roundShap(35px, 35px, $bgcolor);
+        border: 1px solid $primary;
+      }
+    }
+  }
+
+  .driverBox {
+    border-radius: 15px;
+    padding: 5px;
+    cursor: pointer;
+
+    .driverProfile {
+      @include itemPosition(center, flex-start);
+      gap: 10px;
+
+      .image {
+        width: 48px;
+        height: 48px;
+
+        img {
+          width: 50px;
+          height: 50px;
+          border-radius: 6px;
+        }
+      }
+
+      h3 {
+        font-size: 16px;
+        font-weight: 600;
+      }
+    }
+
+    .dataBox {
+      p {
+        font-size: 12px;
+      }
+
+      h4 {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .nav-tabs {
+    border-bottom: none;
+
+    .nav-item {
+      margin: 10px 30px 0 0;
+
+      .nav-link {
+        border: none;
+        border-radius: 10px;
+        color: $primary;
+        text-decoration: none;
+        font-weight: 500;
+        background-color: $bgcolor;
+
+        &.active {
+          @include outerShadow();
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+.shipmentInfo {
+  .dataBox {
+    .data {
+      @include itemPosition(center, flex-start);
+      gap: 10px;
+
+      .icon {
+        @include roundShap(35px, 35px, $bgcolor);
+        border: 1px solid $supporting;
+      }
+
+      .text {
+        flex: 1;
+
+        p {
+          font-weight: 500;
+        }
+      }
+    }
+
+    // .temperature {
+    //   @include roundShap(130px, 130px, none);
+    //   background: #000000;
+    //   border: 3px solid $light;
+    //   @include outerShadow();
+    //   color: $light;
+    // }
+    .mapGraph {
+      position: relative;
+
+      .temperatureBox {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        z-index: 1;
+      }
+    }
+  }
+
+  .truckInfoBox {
+    @include outerShadow();
+    border-radius: 10px;
+    padding: 10px;
+
+    p {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .unitNumber {
+      margin-top: 15px;
+      @include innerShadow();
+      text-align: center;
+      padding: 15px;
+
+      h3 {
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .sensorData {
+    .sensorDataBox {
+      @include outerShadow();
+      padding: 10px;
+      border-radius: 15px;
+      height: 100%;
+
+      p {
+        font-size: 12px;
+        color: $secondary;
+        margin-bottom: 0;
+      }
+
+      h2 {
+        font-size: 25px;
+        font-weight: 600;
+      }
+
+      h6 {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .informationAccordients {
+    @include outerShadow();
+    border-radius: 15px;
+    overflow: hidden;
+    border: 2px solid $bgcolor;
+
+    .dataBox {
+      margin-bottom: 10px;
+
+      p {
+        font-size: 12px;
+        margin-bottom: 0;
+      }
+
+      h6 {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.shipment-info {
+  .tabLayout {
+    border: 1px solid rgba($color: $primary, $alpha: 0.1);
+    padding: 10px;
+    border-radius: 15px;
+
+    .dataBox {
+      .data {
+        @include itemPosition(center, flex-start);
+        gap: 10px;
+
+        .icon {
+          @include roundShap(35px, 35px, $bgcolor);
+          border: 1px solid $supporting;
+        }
+
+        .text {
+          flex: 1;
+
+          p {
+            font-weight: 500;
+          }
+        }
+      }
+
+      // .temperature {
+      //   @include roundShap(130px, 130px, $bgcolor);
+      //   border: 3px solid rgba($color: $primary, $alpha: 0.1);
+      //   @include outerShadow();
+      // }
+    }
+
+    .travelInfo {
+      @include itemPosition(center, flex-start);
+      gap: 10px;
+
+      ul {
+        @include outerShadow();
+        list-style: none;
+        margin: 0;
+        @include itemPosition(center, flex-end);
+        flex-wrap: wrap;
+        padding: 0;
+        border-radius: 10px;
+        overflow: hidden;
+
+        li {
+          border-right: 1px solid rgba($color: $primary, $alpha: 0.05);
+          padding: 10px;
+          font-weight: 500;
+
+          p {
+            font-size: 14px;
+          }
+
+          Link {
+            font-size: 14px;
+          }
+
+          &.darkBg {
+            background-color: $primary;
+            color: $light;
+          }
+
+          &:first-child {
+            border-radius: 10px 0 0 10px;
+          }
+
+          &:last-child {
+            border-radius: 0 10px 10px 0;
+          }
+        }
+      }
+    }
+
+    .travelRecord {
+      @include itemPosition(center, space-between);
+      gap: 15px;
+      font-weight: 600;
+      flex-wrap: wrap;
+      position: relative;
+
+      .range {
+        flex: 1;
+        position: relative;
+        width: 100%;
+
+        .total {
+          width: 100%;
+          height: 2px;
+          background-color: $primary;
+          position: absolute;
+          top: 50%;
+          z-index: -1;
+          border-radius: 15px;
+        }
+
+        .value {
+          width: 50%;
+          height: 5px;
+          background-color: $primary;
+          position: absolute;
+          top: 47%;
+          z-index: -1;
+          border-radius: 15px;
+        }
+
+        .temp {
+          @include roundShap(35px, 35px, $bgcolor);
+          @include outerShadow();
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+
+      .loc {
+        @include itemPosition(center, flex-start);
+        gap: 10px;
+
+        .icon {
+          @include roundShap(35px, 35px, $bgcolor);
+          border: 1px solid $primary;
+        }
+      }
+
+      .pickup {
+        text-align: center;
+
+        .icon {
+          @include roundShap(35px, 35px, $bgcolor);
+          @include outerShadow();
+          margin: 15px auto;
+        }
+
+        p.destinaton {
+          font-weight: 400;
+          background-color: $bgcolor;
+        }
+      }
+
+      .belowLine {
+        position: absolute;
+        width: 90%;
+        height: 1px;
+        bottom: 26px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: $primary;
+        z-index: -1;
+      }
+    }
+
+    .btn {
+      font-weight: 600;
+    }
+  }
+
+  .shipmentInfo {
+    .dataBox {
+      .data {
+        @include itemPosition(center, flex-start);
+        gap: 10px;
+
+        .icon {
+          @include roundShap(35px, 35px, $bgcolor);
+          border: 1px solid $supporting;
+        }
+
+        .text {
+          flex: 1;
+
+          p {
+            font-weight: 500;
+          }
+        }
+      }
+
+      // .temperature {
+      //   @include roundShap(130px, 130px, none);
+      //   background: #000000;
+      //   border: 3px solid $light;
+      //   @include outerShadow();
+      //   color: $light;
+      // }
+    }
+
+    .truckInfoBox {
+      @include outerShadow();
+      border-radius: 10px;
+      padding: 10px;
+
+      p {
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .unitNumber {
+        margin-top: 15px;
+        @include innerShadow();
+        text-align: center;
+        padding: 15px;
+
+        h3 {
+          font-size: 13px;
+          font-weight: 600;
+        }
+
+        h2 {
+          font-size: 20px;
+        }
+      }
+    }
+
+    .sensorData {
+      .sensorDataBox {
+        @include outerShadow();
+        padding: 10px;
+        border-radius: 15px;
+        height: 100%;
+
+        p {
+          font-size: 12px;
+          color: $secondary;
+          margin-bottom: 0;
+        }
+
+        h2 {
+          font-size: 25px;
+          font-weight: 600;
+        }
+
+        h6 {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .informationAccordients {
+      @include outerShadow();
+      border-radius: 15px;
+      overflow: hidden;
+      border: 2px solid $bgcolor;
+
+      .dataBox {
+        margin-bottom: 10px;
+
+        p {
+          font-size: 12px;
+          margin-bottom: 0;
+        }
+
+        h6 {
+          font-size: 14px;
+          font-weight: 700;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  .mapBox {
+    @include mapBox();
+    position: relative;
+    height: 540px;
+
+    .darktemperature {
+      z-index: 20;
+      position: absolute;
+      top: 0px;
+      left: 10px;
+      @include roundShap(130px, 130px, $primary);
+      border: 3px solid grey;
+      @include outerShadow();
+      color: $light;
+    }
+    .gpsButton {
+      @include squareShap(40px, 40px, 3px, $bgcolor);
+      position: absolute;
+      border: 1px solid $bgcolor;
+      left: 11px;
+      bottom: 117px;
+      cursor: pointer;
+
+      i {
+        color: $primary;
+      }
+
+      z-index: 1;
+    }
+  }
+  .download {
+    @include itemPosition(center, flex-start);
+    gap: 10px;
+
+    .downlodeBox {
+      text-align: center;
+
+      .icon {
+        @include squareShap(48px, 48px, 12px, $bgcolor);
+        @include outerShadow();
+        margin: auto;
+
+        img {
+          width: 30px;
+        }
+      }
+
+      p {
+        margin-top: 15px;
+        color: $secondary;
+      }
+    }
+  }
+
+  .timeLine {
+    @include itemPosition(center, flex-end);
+    gap: 10px;
+
+    .icon {
+      @include squareShap(80px, 80px, 12px, $bgcolor);
+      @include outerShadow();
+    }
+  }
+
+  .table {
+    @include outerShadow();
+    border-radius: 15px;
+
+    td {
+      border-bottom: none;
+
+      .greenIcon {
+        @include roundShap(20px, 20px, $green);
+        color: $light;
+        position: relative;
+
+        i {
+          font-size: 12px;
+        }
+
+        .line {
+          position: absolute;
+          width: 1px;
+          height: 20px;
+          background-color: $green;
+          bottom: -20px;
+        }
+
+        &.darkIcon {
+          @include roundShap(20px, 20px, $bgcolor);
+          color: $primary;
+          border: 1.5px solid $primary;
+
+          .line {
+            background-color: $primary;
+          }
+        }
+      }
+    }
+
+    th {
+      border-bottom: none;
+
+      .greenIcon {
+        @include roundShap(20px, 20px, $green);
+        color: $light;
+        position: relative;
+
+        i {
+          font-size: 12px;
+        }
+
+        .line {
+          position: absolute;
+          width: 1px;
+          height: 20px;
+          background-color: $green;
+          bottom: -20px;
+        }
+
+        &.darkIcon {
+          @include roundShap(20px, 20px, $bgcolor);
+          color: $primary;
+          border: 1.5px solid $primary;
+
+          .line {
+            background-color: $primary;
+          }
+        }
+      }
+    }
+
+    .tableFooter {
+      border-top: 1px solid rgba($color: $primary, $alpha: 0.2);
+    }
+  }
+
+  .travelRecordDetail {
+    @include itemPosition(center, space-between);
+    gap: 15px;
+    font-weight: 600;
+
+    .range {
+      flex: 1;
+      position: relative;
+      width: 100%;
+
+      .total {
+        width: 100%;
+        height: 2px;
+        background-color: $primary;
+        position: absolute;
+        top: 50%;
+        z-index: -1;
+        border-radius: 15px;
+      }
+
+      .value {
+        width: var(--move-point-left);
+        height: 5px;
+        background-color: $green;
+        position: absolute;
+        top: 47%;
+        z-index: -1;
+        border-radius: 15px;
+      }
+
+      .temp {
+        @include roundShap(35px, 35px, $bgcolor);
+        @include outerShadow();
+        position: absolute;
+        left: var(--move-point-left);
+        top: 50%;
+        transform: translateY(-50%);
+
+        p {
+          font-size: 12px;
+
+          &.smText {
+            font-size: 9px;
+          }
+        }
+      }
+    }
+
+    .loc {
+      @include itemPosition(center, flex-start);
+      gap: 10px;
+
+      .icon {
+        @include roundShap(35px, 35px, $bgcolor);
+        border: 1px solid $primary;
+      }
+    }
+  }
+
+  .driverBox {
+    border-radius: 15px;
+    padding: 5px;
+    cursor: pointer;
+
+    .driverProfile {
+      @include itemPosition(center, flex-start);
+      gap: 10px;
+
+      .image {
+        width: 48px;
+        height: 48px;
+
+        img {
+          width: 50px;
+          height: 50px;
+          border-radius: 6px;
+        }
+      }
+
+      h3 {
+        font-size: 16px;
+        font-weight: 600;
+      }
+    }
+
+    .dataBox {
+      p {
+        font-size: 12px;
+      }
+
+      h4 {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .nav-tabs {
+    border-bottom: none;
+
+    .nav-item {
+      margin: 10px 30px 0 0;
+
+      .nav-link {
+        border: none;
+        border-radius: 10px;
+        color: $primary;
+        text-decoration: none;
+        font-weight: 500;
+        background-color: $bgcolor;
+        cursor: pointer;
+
+        &.active {
+          @include outerShadow();
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+.trailerInfo {
+  .popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+
+    .popup {
+      width: 687px;
+
+      .modal-content {
+        border-radius: 15px;
+
+        .editBox {
+          gap: 10px;
+
+          i {
+            @include roundShap(30px, 30px, $bgcolor);
+            @include outerShadow();
+            color: $supporting;
+            cursor: pointer;
+          }
+        }
+
+        .modal-header {
+          background-color: $bgcolor;
+          border-bottom: none;
+          border-radius: 15px 15px 0 0;
+          padding: 20px;
+
+          h5.modal-title {
+            font-size: 22px;
+            font-weight: 500;
+          }
+        }
+
+        .modal-body {
+          background-color: $bgcolor;
+          padding: 0 20px 20px 20px;
+        }
+
+        .modal-footer {
+          background-color: $bgcolor;
+          border-radius: 0 0 15px 15px;
+          padding: 15px;
+
+          .btn {
+            min-width: 130px;
+            font-size: 16px;
+          }
+        }
+      }
+
+      &.custom-width {
+        max-width: 687px;
+      }
+
+      &.sm-width {
+        max-width: 354px;
+      }
+    }
+  }
+
+  .trailerInfoLayout {
+    .dataBox {
+      .data {
+        @include itemPosition(center, flex-start);
+        gap: 10px;
+
+        .icon {
+          @include roundShap(35px, 35px, $bgcolor);
+          border: 1px solid $supporting;
+        }
+
+        .text {
+          flex: 1;
+
+          p {
+            font-weight: 500;
+          }
+        }
+      }
+
+      // .temperature {
+      //   @include roundShap(130px, 130px, none);
+      //   background: #000000;
+      //   border: 3px solid $light;
+      //   @include outerShadow();
+      //   color: $light;
+      // }
+      .mapGraph {
+        position: relative;
+
+        .temperatureBox {
+          position: absolute;
+          right: 10px;
+          top: 10px;
+          z-index: 1;
+        }
+      }
+    }
+
+    .mapBox {
+      @include mapBox();
+      height: 400px;
+    }
+
+    .sensorData {
+      .sensorDataBox {
+        @include outerShadow();
+        padding: 10px;
+        border-radius: 15px;
+        height: 100%;
+
+        p {
+          font-size: 12px;
+          color: $secondary;
+          margin-bottom: 0;
+        }
+
+        h2 {
+          font-size: 25px;
+          font-weight: 600;
+        }
+
+        h6 {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .informationAccordients {
+      @include outerShadow();
+      border-radius: 15px;
+      overflow: hidden;
+      border: 2px solid $bgcolor;
+
+      .dataBox {
+        margin-bottom: 10px;
+
+        p {
+          font-size: 12px;
+          margin-bottom: 0;
+        }
+
+        h6 {
+          font-size: 14px;
+          font-weight: 700;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  .download {
+    @include itemPosition(center, flex-start);
+    gap: 10px;
+
+    .downlodeBox {
+      text-align: center;
+
+      .icon {
+        @include squareShap(48px, 48px, 12px, $bgcolor);
+        @include outerShadow();
+        margin: auto;
+
+        img {
+          width: 30px;
+        }
+      }
+
+      p {
+        margin-top: 15px;
+        color: $secondary;
+      }
+    }
+  }
+
+  .timeBox {
+    @include outerShadow();
+    text-align: center;
+    padding: 16px 20px;
+    border-radius: 5px;
+
+    h5 {
+      font-size: 20px;
+      font-weight: 600;
+    }
+  }
+
+  .trailerInfoBox {
+    @include outerShadow();
+    padding: 20px;
+    border-radius: 15px;
+
+    h5 {
+      font-size: 16px;
+      text-align: center;
+    }
+
+    h6 {
+      font-size: 14px;
+      color: rgba($color: $primary, $alpha: 0.7);
+      text-align: center;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    .unitNumber {
+      margin-top: 15px;
+      @include innerShadow();
+      text-align: center;
+      padding: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 5px;
+
+      h3 {
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      h3.city {
+        font-family: "California";
+        font-size: 15px;
+      }
+
+      h3.month {
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+    }
+
+    p {
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+
+  .deviceid {
+    @include itemPosition(center, flex-start);
+    gap: 30px;
+
+    .idNumber {
+      flex: 1;
+      @include outerShadow();
+      border-radius: 10px;
+      height: 46px;
+      @include itemPosition(center, center);
+
+      p {
+        font-size: 20px;
+        font-weight: 600;
+      }
+    }
+
+    .edit {
+      @include squareShap(46px, 46px, 10px, transparent);
+      @include outerShadow();
+    }
+  }
+
+  .activeShipment {
+    background-color: $primary;
+    border-radius: 10px;
+    padding: 20px;
+    color: $light;
+
+    h4 {
+      font-size: 18px;
+    }
+
+    .icon {
+      @include roundShap(22px, 22px, $light);
+    }
+
+    h3 {
+      font-size: 20px;
+    }
+
+    .loc {
+      @include itemPosition(center, flex-start);
+      font-size: 14px;
+      gap: 5px;
+    }
+
+    .progressCOntainer {
+      @include itemPosition(center, flex-start);
+      margin-top: 18px;
+      gap: 10px;
+
+      .progress {
+        height: 4px;
+        flex: 1;
+      }
+    }
+  }
+
+  .graphContainer {
+    @include itemPosition(center, center);
+    gap: 50px;
+  }
+  .mapBox {
+    @include mapBox();
+    position: relative;
+    height: 600px;
+
+    .darktemperature {
+      z-index: 20;
+      position: absolute;
+      top: 0px;
+      left: 10px;
+      @include roundShap(130px, 130px, $primary);
+      border: 3px solid grey;
+      @include outerShadow();
+      color: $light;
+    }
+    .gpsButton {
+      @include squareShap(40px, 40px, 3px, $bgcolor);
+      position: absolute;
+      border: 1px solid $bgcolor;
+      left: 10px;
+      bottom: 117px;
+      cursor: pointer;
+
+      i {
+        color: $primary;
+      }
+
+      z-index: 1;
+    }
+  }
+  .timeLine {
+    @include itemPosition(center, flex-end);
+    gap: 10px;
+
+    .icon {
+      @include squareShap(46px, 46px, 10px, $bgcolor);
+      @include outerShadow();
+
+      img {
+        width: 30px;
+      }
+    }
+  }
+
+  .table {
+    @include outerShadow();
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+
+    thead {
+      border-bottom: 1.5px solid rgba($color: $primary, $alpha: 0.2);
+    }
+    tbody {
+      tr {
+        &:last-child {
+          th {
+            .greenIcon {
+              .line {
+                display: none;
+              }
+            }
+          }
+        }
+        td {
+          border-bottom: none;
+        }
+        th {
+          border-bottom: none;
+          &.flexBox {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+          }
+          span {
+            font-weight: 400;
+          }
+          .greenIcon {
+            @include roundShap(20px, 20px, $green);
+            color: $light;
+            position: relative;
+
+            i {
+              font-size: 12px;
+            }
+
+            .line {
+              position: absolute;
+              width: 1px;
+              height: 20px;
+              background-color: $green;
+              bottom: -20px;
+            }
+
+            &.darkIcon {
+              @include roundShap(20px, 20px, $bgcolor);
+              color: $primary;
+              border: 1.5px solid $primary;
+
+              .line {
+                background-color: $primary;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .tableFooter {
+      border-top: 1px solid rgba($color: $primary, $alpha: 0.2);
+    }
+  }
+
+  .travelRecordDetail {
+    @include itemPosition(center, space-between);
+    gap: 15px;
+    font-weight: 600;
+
+    .range {
+      flex: 1;
+      position: relative;
+      width: 100%;
+
+      .total {
+        width: 100%;
+        height: 2px;
+        background-color: $primary;
+        position: absolute;
+        top: 50%;
+        z-index: -1;
+        border-radius: 15px;
+      }
+
+      .value {
+        width: 50%;
+        height: 5px;
+        background-color: $green;
+        position: absolute;
+        top: 47%;
+        z-index: -1;
+        border-radius: 15px;
+      }
+
+      .temp {
+        @include roundShap(35px, 35px, $bgcolor);
+        @include outerShadow();
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+
+        p {
+          font-size: 12px;
+
+          &.smText {
+            font-size: 9px;
+          }
+        }
+      }
+    }
+
+    .loc {
+      @include itemPosition(center, flex-start);
+      gap: 10px;
+
+      .icon {
+        @include roundShap(35px, 35px, $bgcolor);
+        border: 1px solid $primary;
+      }
+    }
+  }
+
+  .driverBox {
+    border-radius: 15px;
+    padding: 5px;
+    cursor: pointer;
+
+    .driverProfile {
+      @include itemPosition(center, flex-start);
+      gap: 10px;
+
+      .image {
+        width: 48px;
+        height: 48px;
+
+        img {
+          width: 50px;
+          height: 50px;
+          border-radius: 6px;
+        }
+      }
+
+      h3 {
+        font-size: 16px;
+        font-weight: 600;
+      }
+    }
+
+    .dataBox {
+      p {
+        font-size: 12px;
+      }
+
+      h4 {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .nav-tabs {
+    border-bottom: none;
+
+    .nav-item {
+      margin: 10px 30px 0 0;
+
+      .nav-link {
+        border: none;
+        border-radius: 10px;
+        color: $primary;
+        text-decoration: none;
+        font-weight: 500;
+        background-color: $bgcolor;
+        cursor: pointer;
+
+        &.active {
+          @include outerShadow();
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+.Alarm {
+  .nav-tabs {
+    border: none;
+
+    .nav-item {
+      width: 120px;
+      text-align: center;
+
+      &:first-child {
+        .nav-link {
+          border-radius: 12px 0 0 12px;
+        }
+      }
+
+      &:last-child {
+        .nav-link {
+          border-radius: 0 12px 12px 0;
+        }
+      }
+
+      .nav-link {
+        border: none;
+        border-radius: 12px;
+        background-color: rgba($color: $primary, $alpha: 0.1);
+        color: $primary;
+        text-decoration: none;
+        font-weight: 500;
+
+        &.active {
+          background-color: $primary;
+          font-weight: 600;
+          color: $light;
+        }
+      }
+    }
+  }
+
+  .tab-content {
+    margin: 15px 0;
+
+    .tab-pane {
+      .alarmBox {
+        border-radius: 15px;
+        padding: 15px;
+        border: 1px solid rgba($color: $primary, $alpha: 0.1);
+
+        a {
+          font-weight: 500;
+        }
+
+        .location {
+          .data {
+            padding: 15px 0;
+            @include itemPosition(center, flex-start);
+            gap: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.Notifications {
+  .nav-tabs {
+    border: none;
+
+    .nav-item {
+      width: 120px;
+      text-align: center;
+
+      &:first-child {
+        .nav-link {
+          border-radius: 12px 0 0 12px;
+        }
+      }
+
+      &:last-child {
+        .nav-link {
+          border-radius: 0 12px 12px 0;
+        }
+      }
+
+      .nav-link {
+        border: none;
+        border-radius: 12px;
+        background-color: rgba($color: $primary, $alpha: 0.1);
+        color: $primary;
+        text-decoration: none;
+        font-weight: 500;
+
+        &.active {
+          background-color: $primary;
+          font-weight: 600;
+          color: $light;
+        }
+      }
+    }
+  }
+
+  .tab-content {
+    margin: 15px 0;
+
+    .tab-pane {
+      .alarmBox {
+        border-radius: 15px;
+        padding: 15px;
+        border: 1px solid rgba($color: $primary, $alpha: 0.1);
+
+        a {
+          font-weight: 500;
+        }
+
+        .location {
+          .data {
+            padding: 15px 0;
+            @include itemPosition(center, flex-start);
+            gap: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.Settings {
+  .nav-tabs {
+    border: none;
+    justify-content: center;
+    margin-top: 40px;
+
+    .nav-item {
+      .nav-link {
+        text-decoration: none;
+        color: $primary;
+        border: none;
+        border-radius: 10px;
+        margin: 0 15px;
+        background-color: $bgcolor;
+
+        &.active {
+          @include outerShadow();
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .tab-content {
+    .tab-pane {
+      h3 {
+        font-size: 20px;
+      }
+
+      h4 {
+        font-size: 18px;
+        font-weight: 400;
+      }
+
+      .contentBox {
+        @include outerShadow();
+        padding: 15px;
+        border-radius: 15px;
+
+        .inputField {
+          margin: 20px 0;
+        }
+
+        .spaceBetween {
+          margin: 20px 0;
+
+          a {
+            text-decoration: none;
+            font-weight: 500;
+          }
+        }
+
+        hr {
+          background-color: rgba($color: $primary, $alpha: 0.4);
+        }
+
+        .imageBox {
+          @include outerShadow();
+          padding: 15px;
+          height: 140px;
+          border-radius: 10px;
+          position: relative;
+
+          i {
+            position: absolute;
+            top: 0;
+            right: 0;
+            color: $primary;
+            cursor: pointer;
+          }
+
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.profile {
+  .profileData {
+    padding: 15px;
+    @include outerShadow();
+    border-radius: 15px;
+    height: 85vh;
+    position: relative;
+
+    .dataRow {
+      @include itemPosition(flex-start, space-between);
+      flex-wrap: wrap-reverse;
+
+      .userdata {
+        @include itemPosition(center, flex-start);
+        flex-wrap: wrap;
+        gap: 40px;
+
+        .imageBox {
+          img {
+            width: 75px;
+            height: 75px;
+            border-radius: 5px;
+          }
+
+          @include itemPosition(center, flex-start);
+          gap: 15px;
+
+          .data {
+            border-left: none;
+            padding-left: 0px;
+          }
+        }
+
+        .data {
+          border-left: 1px solid rgba($color: $primary, $alpha: 0.2);
+          padding-left: 40px;
+
+          h6 {
+            font-size: 14px;
+            color: $supporting;
+          }
+
+          p {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+    .logout {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      @include itemPosition(center, flex-start);
+      gap: 8px;
+      cursor: pointer;
+      width: 150px;
+      border: none;
+      outline: none;
+      background-color: transparent;
+
+      p {
+        font-weight: 400;
+      }
+    }
+  }
+
+  .inputField {
+    margin-top: 15px;
+  }
+
+  .uploadImage {
+    @include squareShap(60px, 60px, 5px, transparent);
+    position: relative;
+
+    img.profile {
+      @include squareShap(60px, 60px, 5px, transparent);
+    }
+
+    .iconBox {
+      @include roundShap(30px, 30px, $bgcolor);
+      border: 1px solid $primary;
+      position: absolute;
+      bottom: -5px;
+      right: -5px;
+      cursor: pointer;
+
+      img.icon {
+        width: 15px;
+        cursor: pointer;
+        position: absolute;
+        top: 8px;
+        left: 8px;
+      }
+    }
+  }
+}
+
+.chat {
+  .chatBox {
+    @include outerShadow();
+    border-radius: 15px;
+    position: relative;
+    height: 85vh;
+    overflow: hidden;
+
+    .chatListHeader {
+      @include itemPosition(center, space-between);
+      gap: 15px;
+      border-bottom: 1px solid rgba($color: $primary, $alpha: 0.1);
+      padding: 10px;
+      width: 100%;
+
+      .toggle {
+        display: none;
+      }
+
+      .profile {
+        @include itemPosition(center, flex-start);
+        gap: 10px;
+
+        .image {
+          @include roundShap(50px, 50px, $bgcolor);
+
+          img {
+            @include roundShap(50px, 50px, $bgcolor);
+          }
+        }
+
+        .text {
+          h5 {
+            font-size: 18px;
+            margin-bottom: 0;
+          }
+
+          p {
+            margin-bottom: 0;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+    .contactList {
+      width: 350px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-right: 1px solid rgba($color: $primary, $alpha: 0.1);
+      z-index: 1;
+      background-color: $bgcolor;
+      overflow: auto;
+
+      .chatListHeader {
+        position: sticky;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        background-color: $bgcolor;
+      }
+
+      .closeBtn {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 10px;
+        @include outerShadow();
+        border-radius: 50%;
+        display: none;
+
+        i {
+          font-size: 25px;
+        }
+      }
+
+      .contact {
+        //
+        @include itemPosition(center, space-between);
+        gap: 15px;
+        border-bottom: 1px solid rgba($color: $primary, $alpha: 0.1);
+        padding: 10px;
+        cursor: pointer;
+
+        .profile {
+          @include itemPosition(center, flex-start);
+          gap: 10px;
+
+          .image {
+            @include roundShap(50px, 50px, $bgcolor);
+
+            img {
+              @include roundShap(50px, 50px, $bgcolor);
+            }
+          }
+
+          .text {
+            h5 {
+              font-size: 18px;
+              margin-bottom: 0;
+            }
+
+            p {
+              margin-bottom: 0;
+              font-size: 12px;
+              font-weight: 500;
+            }
+          }
+        }
+
+        .time {
+          font-size: 12px;
+          display: flex;
+          align-items: flex-end;
+          justify-content: right;
+          flex-direction: column;
+
+          .msgCount {
+            background: black;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 15px;
+            font-size: 9px;
+            font-weight: 600;
+          }
+        }
+      }
+
+      .dropdown {
+        position: initial;
+        background-color: $bgcolor;
+        border-radius: 10px;
+        margin: 0 10px;
+        padding: 10px;
+        @include outerShadow();
+        .dropdownItem {
+          &:not(:last-child) {
+            border-bottom: 1px solid rgba($color: $primary, $alpha: 0.1);
+          }
+        }
+      }
+    }
+
+    .contactChat {
+      //
+      @include itemPosition(flex-start, space-between);
+      flex-direction: column;
+      width: calc(100% - 350px);
+      float: right;
+      height: 100%;
+
+      .chatHeader {
+        @include itemPosition(center, space-between);
+        gap: 15px;
+        border-bottom: 1px solid rgba($color: $primary, $alpha: 0.1);
+        padding: 10px;
+        width: 100%;
+
+        .toggle {
+          display: none;
+        }
+
+        .profile {
+          @include itemPosition(center, flex-start);
+          gap: 10px;
+
+          .image {
+            @include roundShap(50px, 50px, $bgcolor);
+
+            img {
+              @include roundShap(50px, 50px, $bgcolor);
+            }
+          }
+
+          .text {
+            h5 {
+              font-size: 18px;
+              margin-bottom: 0;
+            }
+
+            p {
+              margin-bottom: 0;
+              font-size: 12px;
+            }
+          }
+        }
+        .clearChat {
+          @include itemPosition(right, flex-end);
+          gap: 10px;
+        }
+      }
+
+      .chatConversation {
+        flex: 1;
+        width: 100%;
+        background-image: url("../public/assets/chatBackground.png");
+        background-position: center;
+        background-size: cover;
+        overflow: auto;
+
+        .messageBox {
+          overflow: auto;
+          height: auto;
+          display: flex;
+          flex-direction: column-reverse;
+          width: 100%;
+          padding-bottom: 20px;
+
+          .SendedMessage {
+            background-color: $primary;
+            color: $light;
+            padding: 10px;
+            border-radius: 10px;
+            width: fit-content;
+            margin: 10px 20px 20px auto;
+            max-width: 500px;
+            position: relative;
+
+            i {
+              position: absolute;
+              right: -8px;
+              bottom: -3px;
+              color: $primary;
+              font-size: 25px;
+              transform: rotate(270deg);
+            }
+
+            p.time {
+              padding-top: 20px;
+              font-size: 12px;
+              margin-bottom: 0;
+              position: absolute;
+              bottom: -22px;
+              right: 0;
+              color: $primary;
+              min-width: 80px;
+            }
+          }
+
+          .receivedMessage {
+            background-color: transparent;
+            color: $primary;
+            padding: 10px;
+            border-radius: 10px 10px 10px 0;
+            width: fit-content;
+            border: 1px solid $primary;
+            max-width: 500px;
+            position: relative;
+            margin: 10px auto 20px 20px;
+
+            img {
+              position: absolute;
+              left: -7px;
+              bottom: -1px;
+              color: $light;
+              font-size: 25px;
+            }
+
+            p.time {
+              font-size: 12px;
+              margin-bottom: 0;
+              position: absolute;
+              bottom: -22px;
+              left: 0;
+              min-width: 80px;
+            }
+          }
+        }
+      }
+
+      .sendMessage {
+        @include itemPosition(flex-start, flex-start);
+        gap: 10px;
+        width: 100%;
+        padding: 15px;
+
+        input {
+          @include innerShadow();
+          flex: 1;
+        }
+      }
+    }
+  }
+
+  .popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+
+    .popup {
+      width: 487px;
+      box-sizing: content-box; /* or border-box, depending on your design */
+      padding-top: 100px;
+      padding-bottom: 100px;
+      .modal-content {
+        border-radius: 15px;
+
+        .editBox {
+          gap: 10px;
+
+          i {
+            @include roundShap(30px, 30px, $bgcolor);
+            @include outerShadow();
+            color: $supporting;
+            cursor: pointer;
+          }
+        }
+
+        .modal-header {
+          background-color: $bgcolor;
+          border-bottom: none;
+          border-radius: 15px 15px 0 0;
+          padding: 20px;
+
+          h5.modal-title {
+            font-size: 22px;
+            font-weight: 500;
+          }
+        }
+
+        .modal-body {
+          background-color: $bgcolor;
+          padding: 0 20px 20px 20px;
+
+          .chatBoxPopup {
+            @include outerShadow();
+            border-radius: 15px;
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+
+            .chatListHeader {
+              @include itemPosition(center, space-between);
+              gap: 15px;
+              border-bottom: 1px solid rgba($color: $primary, $alpha: 0.1);
+              padding: 10px;
+              width: 100%;
+
+              .toggle {
+                display: none;
+              }
+
+              .profile {
+                @include itemPosition(center, flex-start);
+                gap: 10px;
+
+                .image {
+                  @include roundShap(50px, 50px, $bgcolor);
+
+                  img {
+                    @include roundShap(50px, 50px, $bgcolor);
+                  }
+                }
+
+                .text {
+                  h5 {
+                    font-size: 18px;
+                    margin-bottom: 0;
+                  }
+
+                  p {
+                    margin-bottom: 0;
+                    font-size: 12px;
+                  }
+                }
+              }
+            }
+            .contactListPopup {
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              top: 0;
+              left: 0;
+              border-right: 1px solid rgba($color: $primary, $alpha: 0.1);
+              z-index: 1;
+              background-color: $bgcolor;
+              // overflow: auto;
+              .resultList {
+                overflow: auto;
+                height: 300px;
+              }
+
+              .chatListHeader {
+                position: sticky;
+                top: 0;
+                left: 0;
+                z-index: 2;
+                background-color: $bgcolor;
+              }
+
+              .closeBtn {
+                position: fixed;
+                left: 50%;
+                transform: translateX(-50%);
+                top: 10px;
+                @include outerShadow();
+                border-radius: 50%;
+                display: none;
+
+                i {
+                  font-size: 25px;
+                }
+              }
+
+              .contact {
+                //
+                @include itemPosition(center, space-between);
+                gap: 15px;
+                border-bottom: 1px solid rgba($color: $primary, $alpha: 0.1);
+                padding: 10px;
+                cursor: pointer;
+
+                .profile {
+                  @include itemPosition(center, flex-start);
+                  gap: 10px;
+
+                  .image {
+                    @include roundShap(50px, 50px, $bgcolor);
+
+                    img {
+                      @include roundShap(50px, 50px, $bgcolor);
+                    }
+                  }
+
+                  .text {
+                    h5 {
+                      font-size: 18px;
+                      margin-bottom: 0;
+                    }
+
+                    p {
+                      margin-bottom: 0;
+                      font-size: 12px;
+                      font-weight: 500;
+                    }
+                  }
+                }
+
+                .time {
+                  font-size: 12px;
+                }
+              }
+
+              .contact.selected {
+                background-color: #b4b1b1; /* Change the background color to whatever you prefer */
+              }
+            }
+
+            .contactChat {
+              //
+              @include itemPosition(flex-start, space-between);
+              flex-direction: column;
+              width: calc(100% - 350px);
+              float: right;
+              height: 100%;
+
+              .chatHeader {
+                @include itemPosition(center, space-between);
+                gap: 15px;
+                border-bottom: 1px solid rgba($color: $primary, $alpha: 0.1);
+                padding: 10px;
+                width: 100%;
+
+                .toggle {
+                  display: none;
+                }
+
+                .profile {
+                  @include itemPosition(center, flex-start);
+                  gap: 10px;
+
+                  .image {
+                    @include roundShap(50px, 50px, $bgcolor);
+
+                    img {
+                      @include roundShap(50px, 50px, $bgcolor);
+                    }
+                  }
+
+                  .text {
+                    h5 {
+                      font-size: 18px;
+                      margin-bottom: 0;
+                    }
+
+                    p {
+                      margin-bottom: 0;
+                      font-size: 12px;
+                    }
+                  }
+                }
+                .clearChat {
+                  @include itemPosition(right, flex-end);
+                  gap: 10px;
+                }
+              }
+
+              .chatConversation {
+                flex: 1;
+                width: 100%;
+                background-image: url("../public/assets/chatBackground.png");
+                background-position: center;
+                background-size: cover;
+                overflow: auto;
+
+                .messageBox {
+                  overflow: auto;
+                  height: 100%;
+                  display: flex;
+                  flex-direction: column-reverse;
+                  width: 100%;
+                  padding-bottom: 20px;
+
+                  .SendedMessage {
+                    background-color: $primary;
+                    color: $light;
+                    padding: 10px;
+                    border-radius: 10px;
+                    width: fit-content;
+                    margin: 10px 20px 20px auto;
+                    max-width: 500px;
+                    position: relative;
+
+                    i {
+                      position: absolute;
+                      right: -8px;
+                      bottom: -3px;
+                      color: $primary;
+                      font-size: 25px;
+                      transform: rotate(270deg);
+                    }
+
+                    p.time {
+                      padding-top: 20px;
+                      font-size: 12px;
+                      margin-bottom: 0;
+                      position: absolute;
+                      bottom: -22px;
+                      right: 0;
+                      color: $primary;
+                    }
+                  }
+
+                  .receivedMessage {
+                    background-color: transparent;
+                    color: $primary;
+                    padding: 10px;
+                    border-radius: 10px 10px 10px 0;
+                    width: fit-content;
+                    border: 1px solid $primary;
+                    max-width: 500px;
+                    position: relative;
+                    margin: 10px auto 20px 20px;
+
+                    img {
+                      position: absolute;
+                      left: -7px;
+                      bottom: -1px;
+                      color: $light;
+                      font-size: 25px;
+                    }
+
+                    p.time {
+                      font-size: 12px;
+                      margin-bottom: 0;
+                      position: absolute;
+                      bottom: -22px;
+                      left: 0;
+                    }
+                  }
+                }
+              }
+
+              .sendMessage {
+                @include itemPosition(flex-start, flex-start);
+                gap: 10px;
+                width: 100%;
+                padding: 15px;
+
+                input {
+                  @include innerShadow();
+                  flex: 1;
+                }
+              }
+            }
+          }
+        }
+
+        .modal-footer {
+          background-color: $bgcolor;
+          border-radius: 0 0 15px 15px;
+          padding: 15px;
+
+          .btn {
+            min-width: 130px;
+            font-size: 16px;
+          }
+        }
+      }
+
+      &.custom-width {
+        max-width: 687px;
+      }
+
+      &.sm-width {
+        max-width: 354px;
+      }
+    }
+  }
+}
+
+.Qrcodes {
+  .Qrimage {
+    border-radius: 10px;
+    @include outerShadow();
+    padding: 10px;
+    position: relative;
+
+    img {
+      width: 100%;
+    }
+
+    .iconBox {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      @include itemPosition(center, center);
+      gap: 10px;
+
+      i {
+        cursor: pointer;
+        color: $primary;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.Soiltable {
+  background-color: $primary;
+
+  h1 {
+    text-transform: uppercase;
+    font-weight: 600;
+    background: linear-gradient(
+      67.97deg,
+      rgba(255, 0, 0, 0.48) 13.89%,
+      #1c4c95 63.02%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 26px;
+  }
+
+  h4 {
+    font-weight: 600;
+    font-size: 26px;
+    color: $light;
+  }
+
+  h6 {
+    color: rgba($color: $light, $alpha: 0.87);
+  }
+
+  p {
+    color: rgba($color: $light, $alpha: 0.7);
+    max-width: 776px;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .timeLineBox {
+    .detailRow {
+      @include itemPosition(flex-start, flex-start);
+      gap: 20px;
+      position: relative;
+
+      .checkBox {
+        @include roundShap(25px, 25px, $green);
+        z-index: 1;
+
+        i {
+          color: $light;
+        }
+      }
+
+      .timeBox {
+        @include roundShap(25px, 25px, transparent);
+        border: 2px solid $light;
+      }
+
+      .details {
+        text-align: left;
+
+        &.textDim {
+          h6 {
+            color: rgba($color: $light, $alpha: 0.5);
+          }
+
+          p {
+            color: rgba($color: $light, $alpha: 0.5);
+          }
+        }
+      }
+
+      .line {
+        position: absolute;
+        width: 2px;
+        background-color: $green;
+        height: 40px;
+        top: 24px;
+        left: 11px;
+        z-index: 0;
+
+        &.lightLine {
+          background-color: $light;
+        }
+      }
+    }
+  }
+
+  .imageGallery {
+    .imageBox {
+      img {
+        width: 100%;
+        border-radius: 15px;
+      }
+    }
+  }
+
+  &.lightTheme {
+    background-color: $light;
+
+    h4 {
+      font-weight: 600;
+      font-size: 26px;
+      color: $primary;
+    }
+
+    h6 {
+      color: rgba($color: $primary, $alpha: 0.87);
+    }
+
+    p {
+      color: rgba($color: $primary, $alpha: 0.7);
+      max-width: 776px;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .timeLineBox {
+      .detailRow {
+        @include itemPosition(flex-start, flex-start);
+        gap: 20px;
+        position: relative;
+
+        .checkBox {
+          @include roundShap(25px, 25px, $green);
+          z-index: 1;
+
+          i {
+            color: $light;
+          }
+        }
+
+        .timeBox {
+          @include roundShap(25px, 25px, transparent);
+          border: 2px solid $light;
+        }
+
+        .details {
+          text-align: left;
+
+          &.textDim {
+            h6 {
+              color: rgba($color: $light, $alpha: 0.5);
+            }
+
+            p {
+              color: rgba($color: $light, $alpha: 0.5);
+            }
+          }
+        }
+
+        .line {
+          position: absolute;
+          width: 2px;
+          background-color: $green;
+          height: 40px;
+          top: 24px;
+          left: 11px;
+          z-index: 0;
+
+          &.lightLine {
+            background-color: $light;
+          }
+        }
+      }
+    }
+  }
+}
+
+.SoiltableList {
+  .nav-tabs {
+    border: none;
+    padding-left: 20px;
+    .nav-item {
+      width: 220px;
+      text-align: center;
+      margin: 0 !important;
+      &:first-child {
+        .nav-link {
+          border-radius: 12px 0 0 12px;
+        }
+      }
+
+      &:last-child {
+        .nav-link {
+          border-radius: 0 12px 12px 0;
+        }
+      }
+
+      .nav-link {
+        border: none;
+        border-radius: 12px;
+        background-color: rgba($color: $primary, $alpha: 0.1);
+        color: $primary;
+        text-decoration: none;
+        font-weight: 500;
+
+        &.active {
+          background-color: $primary;
+          font-weight: 600;
+          color: $light;
+        }
+        &.inactive {
+          background-color: #949494;
+          font-weight: 600;
+          color: $light;
+        }
+      }
+    }
+  }
+  .SolitableBox {
+    .SolitableImage {
+      border-radius: 10px;
+      @include outerShadow();
+      padding: 10px;
+      position: relative;
+      cursor: pointer;
+      height: 200px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+      }
+
+      .editBtns {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: -webkit-fill-available;
+        padding-right: 8px;
+
+        input {
+          border-radius: 50% !important;
+        }
+
+        .light-checkbox.form-check-input:checked {
+          background-color: $light !important;
+        }
+
+        .icon {
+          @include roundShap(25px, 25px, $bgcolor);
+          margin: 5px;
+          border: 1px solid rgba($color: $primary, $alpha: 0.3);
+          i {
+            font-size: 12px;
+            color: rgba($color: $primary, $alpha: 0.7);
+          }
+        }
+
+        .checkIcon {
+          @include roundShap(25px, 25px, $bgcolor);
+          margin: 5px;
+          border: 1px solid rgba($color: $primary, $alpha: 0.3);
+
+          .editIcon {
+            font-size: 12px;
+            color: rgba($color: $primary, $alpha: 0.7);
+          }
+        }
+      }
+    }
+
+    p {
+      font-weight: 600;
+      font-size: 16px;
+    }
+  }
+
+  .UploadedImage {
+    .imageBox {
+      @include itemPosition(center, flex-start);
+      gap: 15px;
+      flex-wrap: wrap;
+
+      .image {
+        @include outerShadow();
+        @include squareShap(70px, 70px, 8px, $bgcolor);
+        position: relative;
+
+        img {
+          @include squareShap(65px, 65px, 8px, $bgcolor);
+        }
+
+        .icon {
+          @include roundShap(15px, 15px, $primary);
+          position: absolute;
+          top: 0px;
+          right: 0px;
+          cursor: pointer;
+
+          i {
+            color: $light;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+
+  .qr {
+    margin-top: 50px;
+
+    img {
+      width: 150px;
+    }
+  }
+
+  .tabNavigation {
+    max-width: 450px;
+  }
+
+  .titleSection {
+    flex: 1;
+    text-align: center;
+
+    h5 {
+      font-size: 14px !important;
+      background-color: $primary;
+      color: $light;
+      border-radius: 50px;
+      width: fit-content;
+      margin: auto;
+      padding: 5px 26px;
+    }
+  }
+
+  .modal-body {
+    border-radius: 0 0 15px 15px;
+    padding-bottom: 0;
+  }
+  .table {
+    @include outerShadow();
+    border-radius: 15px;
+    td {
+      vertical-align: middle;
+      text-align: center;
+    }
+    th {
+      vertical-align: middle;
+      text-align: center;
+    }
+    .tableFooter {
+      border-top: 1px solid rgba($color: $primary, $alpha: 0.2);
+    }
+
+    .actionBox {
+      @include itemPosition(center, center);
+      gap: 10px;
+      .icon {
+        @include roundShap(40px, 40px, $bgcolor);
+        @include outerShadow();
+        i {
+          color: $supporting;
+        }
+        &:hover {
+          @include innerShadow();
+        }
+      }
+    }
+  }
+
+  .popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+
+    .popup {
+      width: 687px;
+
+      .modal-content {
+        border-radius: 15px;
+
+        .editBox {
+          gap: 10px;
+
+          i {
+            @include roundShap(30px, 30px, $bgcolor);
+            @include outerShadow();
+            color: $supporting;
+            cursor: pointer;
+          }
+        }
+
+        .modal-header {
+          background-color: $bgcolor;
+          border-bottom: none;
+          border-radius: 15px 15px 0 0;
+          padding: 20px;
+
+          h5.modal-title {
+            font-size: 22px;
+            font-weight: 500;
+          }
+        }
+
+        .modal-body {
+          background-color: $bgcolor;
+          padding: 0 20px 20px 20px;
+        }
+
+        .modal-footer {
+          background-color: $bgcolor;
+          border-radius: 0 0 15px 15px;
+          padding: 15px;
+
+          .btn {
+            min-width: 130px;
+            font-size: 16px;
+          }
+        }
+      }
+
+      &.custom-width {
+        max-width: 687px;
+      }
+
+      &.sm-width {
+        max-width: 354px;
+      }
+    }
+  }
+}
+
+.graphBox {
+  position: relative;
+  @include outerShadow();
+  border-radius: 50%;
+  width: 134px;
+  height: 134px;
+  text-align: center;
+
+  .textBox {
+    position: absolute;
+    transform: translate(-50%);
+    top: 22%;
+    left: 54%;
+    z-index: 2;
+
+    p {
+      color: $secondary;
+    }
+  }
+
+  h4 {
+    font-size: 18px;
+  }
+}
+
+.information {
+  p {
+    font-size: 14px;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+@media only screen and (max-width: 1497px) {
+  .dashboard {
+    .homeNavigation {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(94px, 1fr));
+
+      .navBtnBox {
+        .navBtn {
+          height: 122px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .units {
+    .unitBox {
+      img.truck {
+        max-width: 200px;
+        display: block;
+        margin: auto;
+      }
+    }
+  }
+
+  .chat {
+    .chatBox {
+      .contactList {
+        transition: all 0.4s;
+        transform: translateX(-400px);
+
+        .closeBtn {
+          display: block;
+        }
+
+        &.translate {
+          transform: translateX(0px);
+        }
+      }
+
+      .contactChat {
+        width: 100%;
+
+        .chatHeader {
+          .toggle {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  .dashboard {
+    .mapSection {
+      height: 450px;
+    }
+  }
+
+  .shipmentInfo {
+    .dataBox {
+      .data {
+        @include itemPosition(center, flex-start);
+        gap: 10px;
+
+        .icon {
+          @include roundShap(35px, 35px, $bgcolor);
+          border: 1px solid $supporting;
+        }
+
+        .text {
+          flex: 1;
+
+          p {
+            font-weight: 500;
+          }
+        }
+      }
+
+      .mapGraph {
+        position: relative;
+
+        .temperatureBox {
+          position: absolute;
+          right: 10px;
+          top: 50px;
+          z-index: 1;
+        }
+      }
+    }
+
+    .truckInfoBox {
+      @include outerShadow();
+      border-radius: 10px;
+      padding: 10px;
+
+      p {
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .unitNumber {
+        margin-top: 15px;
+        @include innerShadow();
+        text-align: center;
+        padding: 15px;
+
+        h3 {
+          font-size: 13px;
+          font-weight: 600;
+        }
+
+        h2 {
+          font-size: 20px;
+        }
+      }
+    }
+
+    .sensorData {
+      .sensorDataBox {
+        @include outerShadow();
+        padding: 10px;
+        border-radius: 15px;
+        height: 100%;
+
+        p {
+          font-size: 12px;
+          color: $secondary;
+          margin-bottom: 0;
+        }
+
+        h2 {
+          font-size: 25px;
+          font-weight: 600;
+        }
+
+        h6 {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .informationAccordients {
+      @include outerShadow();
+      border-radius: 15px;
+      overflow: hidden;
+      border: 2px solid $bgcolor;
+      .icon {
+        background-color: $primary;
+        border-radius: 10px;
+        padding: 20px;
+        color: $light;
+        @include roundShap(22px, 22px, $light);
+      }
+      .dataBox {
+        margin-bottom: 10px;
+
+        p {
+          font-size: 12px;
+          margin-bottom: 0;
+        }
+
+        h6 {
+          font-size: 14px;
+          font-weight: 700;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  .shipment-info {
+    .travelRecordDetail {
+      .loc {
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .auth {
+    .content {
+      padding: 20px;
+    }
+  }
+
+  .dashboard {
+    position: relative;
+
+    .searchcontent {
+      max-width: 100%;
+    }
+  }
+
+  .chat {
+    .chatBox {
+      .contactList {
+        transition: all 0.4s;
+        width: 300px;
+        transform: translateX(-300px);
+      }
+    }
+  }
+}
+@media only screen and (max-width: 486px) {
+  .header .notification-count {
+    top: -40px;
+    right: -12px;
+  }
+  .dashboard {
+    .logoBox {
+      margin-right: 5px;
+    }
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .dashboard {
+    .devices {
+      a {
+        height: 80px;
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+._NijRA ._1iTMT {
+  background-color: $bgcolor !important;
+}
+
+// Custom accordion
+
+.accordion {
+  .accordion-item {
+    border: none;
+
+    &:not(:first-child) {
+      border-top: 1px solid rgba($color: $primary, $alpha: 0.2);
+    }
+
+    .accordion-header {
+      .accordion-button {
+        background-color: $primary;
+        color: $light;
+        font-weight: 500;
+
+        &:focus {
+          box-shadow: none;
+        }
+
+        &.collapsed {
+          background-color: $bgcolor;
+          color: $primary;
+        }
+      }
+    }
+
+    .accordion-collapse {
+      background-color: $primary;
+      color: $light;
+    }
+  }
+}
+
+.accordion-button:not(.collapsed)::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+// swal-modal
+
+.swal-overlay--show-modal .swal-modal {
+  background-color: $bgcolor;
+}
+
+.swal-title {
+  @include fontFamily();
+  color: $primary;
+}
+
+.swal-text {
+  @include fontFamily();
+  color: $secondary;
+}
+
+.swal-footer {
+  text-align: center;
+}
+
+.swal-button--danger {
+  background: $bgcolor !important;
+  border-radius: 5px;
+  @include outerShadow();
+  height: 46px;
+  @include fontFamily();
+  color: $primary;
+
+  &:focus {
+    @include outerShadow();
+  }
+
+  text-transform: uppercase;
+
+  &:hover {
+    @include innerShadow();
+  }
+}
+
+.swal-button--cancel {
+  background: $bgcolor !important;
+  border-radius: 5px;
+  @include outerShadow();
+  height: 46px;
+  @include fontFamily();
+  color: $primary;
+  margin-right: 15px;
+
+  &:focus {
+    @include outerShadow();
+  }
+
+  text-transform: uppercase;
+
+  &:hover {
+    @include innerShadow();
+  }
+
+  border: 1px solid $secondary;
+}
+
+.swal-button--confirm {
+  background: $bgcolor !important;
+  border-radius: 5px;
+  @include outerShadow();
+  height: 46px;
+  @include fontFamily();
+  color: $primary;
+
+  &:focus {
+    @include outerShadow();
+  }
+
+  text-transform: uppercase;
+
+  &:hover {
+    @include innerShadow();
+  }
+}
+
+.swal-icon--success:after,
+.swal-icon--success:before {
+  background: $bgcolor;
+  z-index: -1;
+}
+
+.swal-icon--success__hide-corners {
+  background: $bgcolor;
+  z-index: -1;
+}
+
+.highcharts-navigator-mask-inside {
+  fill: rgba(75, 77, 75, 0.2) !important;
+}
+
+.highcharts-range-selector {
+  text-indent: -99999px;
+}
+.highcharts-label.highcharts-range-input text {
+  font-size: 12px !important;
+}
+.css-1dimb5e-singleValue {
+  margin-bottom: 5px;
+}
